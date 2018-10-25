@@ -47,14 +47,16 @@ public class Aufgabe1and2 {
     }
 
     private static Random random = new Random();
+
     private static void quickSortRandom(int[] numbers) {
         quickSortRandom(numbers, 0, numbers.length - 1);
     }
+
     private static void quickSortRandom(int[] numbers, int start, int end) {
         if (end - start < 1) {
             return;
         }
-        int pivotIndex = random.nextInt(end - start) + start;
+        int pivotIndex = random.nextInt(end - start + 1) + start;
         int pivot = numbers[pivotIndex];
         // move pivot to the start
         swap(numbers, start, pivotIndex);
@@ -72,19 +74,30 @@ public class Aufgabe1and2 {
     }
 
     private static int[] getExampleArray() {
-        return new int[] {-5, 13, -32, 7, -3, 17, 23, 12, -35, 19};
+        return new int[]{-5, 13, -32, 7, -3, 17, 23, 12, -35, 19};
     }
 
-    private static void testSortingAlgorithm(int[] arr, SortingAlgorithm algorithm) {
+    private static long testSortingAlgorithm(int[] arr, SortingAlgorithm algorithm) {
+        long before = System.currentTimeMillis();
         algorithm.sort(arr);
+        long after = System.currentTimeMillis();
+        return after - before;
+    }
 
-        System.out.println(Arrays.toString(arr));
+    private static int[] getRandomArray(int n) {
+        int[] arr = new int[n];
+        var random = new Random();
+
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = random.nextInt();
+        }
+
+        return arr;
     }
 
     public static void main(String[] args) {
-        testSortingAlgorithm(getExampleArray(), Aufgabe1and2::insertionSortBackwards);
-        testSortingAlgorithm(getExampleArray(), Aufgabe1and2::bubbleSortBackwards);
-        testSortingAlgorithm(getExampleArray(), Aufgabe1and2::quickSortRandom);
-        testSortingAlgorithm(getExampleArray(), Aufgabe1and2::selectionSortBackwards);
+        final int N = 510_000_000;
+        long millis = testSortingAlgorithm(getRandomArray(N), Aufgabe1and2::quickSortRandom);
+        System.out.println(millis);
     }
 }
