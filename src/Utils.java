@@ -30,7 +30,7 @@ class Utils {
     }
     
     static int[] getExampleArray() {
-        return new int[]{-5, 13, -32, 7, -3, 17, 23, 12, -35, 19};
+        return new int[]{-5, 13, -32, 7, -3, 17, 23, 12, -35, 19, -55};
     }
     
     static int[] getRandomArray(int n) {

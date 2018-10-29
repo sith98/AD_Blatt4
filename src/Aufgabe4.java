@@ -34,7 +34,7 @@ public class Aufgabe4 {
         var helper = new int[numbers.length];
         
         for (int step = 1; step < numbers.length; step *= 2) {
-            for (int i = 0; i <= numbers.length - step; i += step * 2) {
+            for (int i = 0; i < numbers.length - step; i += step * 2) {
                 int end = Math.min(i + step * 2, numbers.length);
                 int middle = i + step;
                 Utils.merge(numbers, i, end - 1, middle - 1, helper);
@@ -43,9 +43,9 @@ public class Aufgabe4 {
     }
     
     public static void main(String[] args) {
-        int[] arr = {-5, 13, -32, 7, -3, 17, 23, 12, -35, 19};
+        int[] arr = Utils.getExampleArray();
         
-        insertionSortRec(arr);
+        mergeSortIterative(arr);
         
         System.out.println(Arrays.toString(arr));
     }
