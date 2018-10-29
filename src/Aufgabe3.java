@@ -31,6 +31,22 @@ public class Aufgabe3 {
             }
         }
     }
+
+    private static void betterHeapify(int[] numbers, int rootIndex, int endIndex) {
+        int leftChildIndex = rootIndex * 2 + 1;
+        int rightChildIndex = rootIndex * 2 + 2;
+
+        int largest = rootIndex;
+        if (leftChildIndex <= endIndex & numbers[leftChildIndex] > numbers[largest]) {
+            largest = leftChildIndex;
+        }
+        if (rightChildIndex <= endIndex & numbers[rightChildIndex] > numbers[largest]) {
+            largest = rightChildIndex;
+        }
+        if (largest != rootIndex) {
+            Utils.swap(numbers, largest, rootIndex);
+        }
+    }
     
     private static void heapSort(int[] numbers) {
         int endIndex = numbers.length - 1;
@@ -39,7 +55,7 @@ public class Aufgabe3 {
         
         // build heap
         for (int i = firstIndexWithChildren; i >= 0; i--) {
-            heapify(numbers, i, endIndex);
+            betterHeapify(numbers, i, endIndex);
         }
         Utils.printArray(numbers);
         while (endIndex > 0) {

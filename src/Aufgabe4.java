@@ -29,6 +29,8 @@ public class Aufgabe4 {
     // enthält numbers nach i Schleifendurchläufen n / 2^i Teilarrays
     // Damit ist nach log(n) Schleifendurchläufen das Gesamtarray sortiert,
     // da es aus n / 2^log(n) = 1 Teilarrays besteht.
+    //
+    // Laufzeit innere Schleife: O(n)
     // => O(n * log(n))
     private static void mergeSortIterative(int[] numbers) {
         var helper = new int[numbers.length];

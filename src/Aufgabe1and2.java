@@ -1,8 +1,9 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class Aufgabe1and2 {
-    
-    
+
+
     /**
      * Laufzeit (Worst Case):
      * T(n) = (n - 1) * n/2 = O(n^2)
@@ -25,7 +26,7 @@ public class Aufgabe1and2 {
             numbers[j - 1] = value;
         }
     }
-    
+
     /**
      * Laufzeit (Worst Case):
      * T(n) = (n + 1) * n / 2 = O(n^2)
@@ -42,7 +43,7 @@ public class Aufgabe1and2 {
             }
         }
     }
-    
+
     /**
      * Laufzeit (Worst Case):
      * T(n) = (n + 1) * n / 2 = O(n^2)
@@ -61,15 +62,16 @@ public class Aufgabe1and2 {
             Utils.swap(numbers, i, largestIndex);
         }
     }
-    
+
     private static Random random = new Random();
-    
+
     private static void quickSortRandom(int[] numbers) {
         quickSortRandom(numbers, 0, numbers.length - 1);
     }
-    
-    
+
+
     // Funktioniert prinzipiell genau wie in der Vorlesung (Mit konstant vielen extra Schritten pro Durchlauf)
+
     /**
      * Laufzeit (Worst Case):
      * T(n) = O(n^2)
@@ -93,13 +95,48 @@ public class Aufgabe1and2 {
         }
         // Setze Pivot an die richtige Stelle
         Utils.swap(numbers, start, endSmaller);
+
         quickSortRandom(numbers, start, endSmaller - 1);
         quickSortRandom(numbers, endSmaller + 1, end);
     }
-    
+
+    private static void quickSortRandomTailRec(int[] numbers) {
+        quickSortRandom(numbers, 0, numbers.length - 1);
+    }
+
+    private static void quickSortRandomTailRec(int[] numbers, int start, int end) {
+        while (true) {
+            if (end - start < 1) {
+                return;
+            }
+            int pivotIndex = random.nextInt(end - start + 1) + start;
+            int pivot = numbers[pivotIndex];
+            // Setze Pivot an den Anfang (einzige, neu hinzugekommene Zeile)
+            Utils.swap(numbers, start, pivotIndex);
+            int endSmaller = start;
+            for (int i = start + 1; i <= end; i++) {
+                if (numbers[i] < pivot) {
+                    endSmaller += 1;
+                    Utils.swap(numbers, i, endSmaller);
+                }
+            }
+            // Setze Pivot an die richtige Stelle
+            Utils.swap(numbers, start, endSmaller);
+            if (endSmaller - start > end - endSmaller) {
+                quickSortRandom(numbers, endSmaller + 1, end);
+                end = endSmaller - 1;
+            } else {
+                quickSortRandom(numbers, start, endSmaller - 1);
+                start = endSmaller + 1;
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        final int N = 500_000_000;
-//        long millis = Utils.testSortingAlgorithm(Utils.getRandomArray(N), Aufgabe1and2::quickSortRandom);
+        final int N = 10_000_000;
+
+        long millis = Utils.testSortingAlgorithm(Utils.getRandomArray(N), Aufgabe1and2::quickSortRandomTailRec);
+        System.out.println(millis);
         final int N2 = 900_000;
         long millis2 = Utils.testSortingAlgorithm(Utils.getRandomArray(N2), Aufgabe1and2::insertionSortBackwards);
         System.out.println(millis2);
