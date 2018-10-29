@@ -51,7 +51,7 @@ public class Aufgabe1and2 {
         // Füge jeweils das aktuell größte Element des nicht bereits sortierten Teil des Arrays ein
         for (int i = numbers.length - 1; i >= 0; i--) {
             int largestIndex = i;
-            // Find die höchste Zahl
+            // Fined die höchste Zahl
             for (int j = 0; j < i; j++) {
                 if (numbers[j] > numbers[largestIndex]) {
                     largestIndex = j;
@@ -98,8 +98,10 @@ public class Aufgabe1and2 {
     }
     
     public static void main(String[] args) {
-        final int N = 510_000_000;
-        long millis = Utils.testSortingAlgorithm(Utils.getRandomArray(N), Aufgabe1and2::quickSortRandom);
-        System.out.println(millis);
+        final int N = 500_000_000;
+//        long millis = Utils.testSortingAlgorithm(Utils.getRandomArray(N), Aufgabe1and2::quickSortRandom);
+        final int N2 = 900_000;
+        long millis2 = Utils.testSortingAlgorithm(Utils.getRandomArray(N2), Aufgabe1and2::insertionSortBackwards);
+        System.out.println(millis2);
     }
 }

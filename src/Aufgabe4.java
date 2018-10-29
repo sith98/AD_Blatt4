@@ -5,7 +5,10 @@ public class Aufgabe4 {
     private static void insertionSortRec(int[] numbers) {
         insertionSortRec(numbers, 1, 0, numbers[1]);
     }
-    
+
+    // j started bei i - 1 und läuft abwärts bis 0
+    // sobald j 0 erreicht, wird i eins größer und läuft aufwärts bis n - 1
+    // => Gaußsche Summenformel => O(n^2)
     private static void insertionSortRec(int[] numbers, int i, int j, int value) {
         if (i < numbers.length) {
             if (0 <= j && numbers[j] > value) {
@@ -19,7 +22,14 @@ public class Aufgabe4 {
             }
         }
     }
-    
+
+    // Merge Sort teilt Array erst in Teilarrays der Länge 1, dann 2, 4, 8, ...
+    // Jedes Mal werden jeweils zwei nebeneinander liegende Teilarrays "gemergt"
+    // Da Utils.merge beim i-ten Schleifenduchlauf in i Schritten in einem sortierten Teilarray resultiert,
+    // enthält numbers nach i Schleifendurchläufen n / 2^i Teilarrays
+    // Damit ist nach log(n) Schleifendurchläufen das Gesamtarray sortiert,
+    // da es aus n / 2^log(n) = 1 Teilarrays besteht.
+    // => O(n * log(n))
     private static void mergeSortIterative(int[] numbers) {
         var helper = new int[numbers.length];
         
